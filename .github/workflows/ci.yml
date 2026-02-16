@@ -2,15 +2,15 @@ name: CI
 
 on: push
 
-#on:
-# push:
-#   branches:
-#     - master
-#   tags:
-#     - "v*"
-# pull_request:
-#   branches:
-#     - master
+# on:
+#   push:
+#     branches:
+#       - master
+#     tags:
+#       - "v*"
+#   pull_request:
+#     branches:
+#       - master
 
 jobs:
   test:
@@ -56,6 +56,24 @@ jobs:
       - name: Build documentation
         run: uv run --group docs sphinx-build docs/ docs/_build
 
+      - name: Upload docs artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: docs
+          path: docs/_build/**
+
+  publish_docs:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    needs: docs
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Publish
+        run: ./gh-pages.sh
+
   build:
     runs-on: ubuntu-latest
     needs: test
@@ -76,21 +94,24 @@ jobs:
           name: dist
           path: dist/**
 
-  #publish:
-  #  runs-on: ubuntu-latest
-  #  needs: build
-  #  if: github.ref == 'refs/heads/master'
-  #
-  #  steps:
-  #    - name: Checkout code
-  #      uses: actions/checkout@v6
-  #
-  #    - name: Download distribution artifact
-  #      uses: actions/download-artifact@v7
-  #      with:
-  #        name: dist
-  #
-  #    - name: Publish the package
-  #      run: uv publish
-  #      env:
-  #        UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
+  publish:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Environment
+        uses: ./.github/actions/setup-env
+
+      - name: Download distribution artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: dist
+
+      - name: Publish the package
+        run: uv publish
+        env:
+          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
