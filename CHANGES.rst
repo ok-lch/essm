@@ -1,14 +1,14 @@
 Changes
 =======
 
-``v1.1.1 (ongoing)``
+``v1.1.1.dev0 (ongoing)``
 ----------
 
 Bug Fixes
 ~~~~~~~~
 - Migrate to python 3.9
 - **ci-cd:** Migrate from managing project with setup.py + setup.cfg to [uv package manager](https://docs.astral.sh/uv/)
-- **ci-cd:** TODO: Migrate from travis to github actions
+- **ci-cd:** (ongoing) Migrate from travis to github actions
 - **_generator.py** Migrate from pkg_resources to importlib.resources
 
 ``v1.1``
