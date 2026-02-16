@@ -1,6 +1,16 @@
 Changes
 =======
 
+``v1.1.1 (ongoing)``
+----------
+
+Bug Fixes
+~~~~~~~~
+- Migrate to python 3.9
+- **ci-cd:** Migrate from managing project with setup.py + setup.cfg to [uv package manager](https://docs.astral.sh/uv/)
+- **ci-cd:** TODO: Migrate from travis to github actions
+- **_generator.py** Migrate from pkg_resources to importlib.resources
+
 ``v1.1``
 ----------
 *released 2020-12-20*
@@ -30,7 +40,7 @@ Bug Fixes
 Bug Fixes
 ~~~~~~~~~
 
-- **utils:**  Update code to work with isort5 
+- **utils:**  Update code to work with isort5
   (`PR #89 <https://github.com/environmentalscience/essm/pull/89>`__)
 
 Features
@@ -46,7 +56,7 @@ Features
 
 Bug Fixes
 ~~~~~~~~~
-- **utils:**  Include expr in variable definitions when writing to file 
+- **utils:**  Include expr in variable definitions when writing to file
   (`PR #87 <https://github.com/environmentalscience/essm/pull/87>`__)
 
 
@@ -56,7 +66,7 @@ Features
 - **documentation:** Add use examples as Jupyter notebooks and integrate in documentation
   (`PR #83 <https://github.com/environmentalscience/essm/pull/83>`__)
 
-- **utils:**  Enable writers of .py files for re-import of variable and equation definitions 
+- **utils:**  Enable writers of .py files for re-import of variable and equation definitions
   (`PR #84 <https://github.com/environmentalscience/essm/pull/84>`__)
 
 
